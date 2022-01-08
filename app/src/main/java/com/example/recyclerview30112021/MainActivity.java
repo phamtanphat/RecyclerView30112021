@@ -1,6 +1,7 @@
 package com.example.recyclerview30112021;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,10 +14,22 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView mRcvFood;
+    FoodAdapter mFoodAdapter;
+    ArrayList<FoodModel> mFoodModels;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mRcvFood = findViewById(R.id.recyclerViewFood);
+
+        mFoodModels = (ArrayList<FoodModel>) FoodModel.getMock();
+
+        mFoodAdapter = new FoodAdapter(mFoodModels);
+
+        mRcvFood.setHasFixedSize(true);
+        mRcvFood.setAdapter(mFoodAdapter);
 
 
     }

@@ -71,13 +71,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             String textDiscount = "";
             switch (foodModel.getDiscount().getDiscountSessionEnum()){
                 case ALL_TIME:
-                    textDiscount = "<font color=#A9DEF1>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+"</font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
+                    textDiscount = " <font color=#A9DEF1>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+" - </font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
                     break;
                 case NIGHT:
-                    textDiscount = "<font color=#B59198>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+"</font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
+                    textDiscount = " <font color=#B59198>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+" - </font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
                     break;
                 case NOON:
-                    textDiscount = "<font color=#BDE3BF>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+"</font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
+                    textDiscount = " <font color=#BDE3BF>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+" - </font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
                     break;
             }
             txtDiscount.setText(Html.fromHtml(textDiscount));

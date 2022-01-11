@@ -1,6 +1,7 @@
 package com.example.recyclerview30112021;
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
 
     List<FoodModel> listFoods;
+    private OnItemClickListener onItemClickListener;
 
     public FoodAdapter(List<FoodModel> listFoods) {
         this.listFoods = listFoods;
@@ -57,6 +59,15 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             txtService = itemView.findViewById(R.id.textViewService);
             txtDiscount = itemView.findViewById(R.id.textViewDiscount);
             txtDistance = itemView.findViewById(R.id.textViewDistance);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null){
+                        onItemClickListener.onClick(getAdapterPosition());
+                    }
+                }
+            });
         }
 
         public void bind(FoodModel foodModel){
@@ -85,6 +96,9 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         }
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
 
 }
 

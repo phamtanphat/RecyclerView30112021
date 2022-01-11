@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -31,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
         mRcvFood.setHasFixedSize(true);
         mRcvFood.setAdapter(mFoodAdapter);
 
+
+        mFoodAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Toast.makeText(MainActivity.this, mFoodModels.get(position).getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

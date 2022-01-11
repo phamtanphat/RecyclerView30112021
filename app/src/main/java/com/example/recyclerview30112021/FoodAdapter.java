@@ -29,8 +29,8 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (isLoading){
-            if (position == listFoods.size() - 1){
+        if (isLoading) {
+            if (position == listFoods.size() - 1) {
                 return LOADING_TYPE;
             }
         }
@@ -42,11 +42,11 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view;
-        if (viewType == ITEM_TYPE){
-            view = layoutInflater.inflate(R.layout.item_food,parent,false);
+        if (viewType == ITEM_TYPE) {
+            view = layoutInflater.inflate(R.layout.item_food, parent, false);
             return new FoodViewHolder(view);
-        }else{
-            view = layoutInflater.inflate(R.layout.item_loading,parent,false);
+        } else {
+            view = layoutInflater.inflate(R.layout.item_loading, parent, false);
             return new LoadingViewHolder(view);
         }
 
@@ -54,9 +54,10 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        FoodModel foodModel = listFoods.get(position);
-//
-//        holder.bind(foodModel);
+        if (holder.getItemViewType() == ITEM_TYPE) {
+            FoodModel foodModel = listFoods.get(position);
+            ((FoodViewHolder) holder).bind(foodModel);
+        }
     }
 
     @Override
@@ -85,32 +86,32 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onItemClickListener != null){
+                    if (onItemClickListener != null) {
                         onItemClickListener.onClick(getAdapterPosition());
                     }
                 }
             });
         }
 
-        public void bind(FoodModel foodModel){
+        public void bind(FoodModel foodModel) {
             img.setImageResource(foodModel.getImage());
             txtName.setText(foodModel.getName());
             txtAddress.setText(foodModel.getAddress());
             String service = "";
-            for (ServiceEnum element : foodModel.getArrServiceEnum()){
+            for (ServiceEnum element : foodModel.getArrServiceEnum()) {
                 service += element.toString() + "/";
             }
-            txtService.setText(service.substring(0,service.length() - 1));
+            txtService.setText(service.substring(0, service.length() - 1));
             String textDiscount = "";
-            switch (foodModel.getDiscount().getDiscountSessionEnum()){
+            switch (foodModel.getDiscount().getDiscountSessionEnum()) {
                 case ALL_TIME:
-                    textDiscount = " <font color=#A9DEF1>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+" - </font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
+                    textDiscount = " <font color=#A9DEF1>" + foodModel.getDiscount().getDiscountSessionEnum().toString() + " - </font> <font color=#F9C29A>" + foodModel.getDiscount().getName() + "</font>";
                     break;
                 case NIGHT:
-                    textDiscount = " <font color=#B59198>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+" - </font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
+                    textDiscount = " <font color=#B59198>" + foodModel.getDiscount().getDiscountSessionEnum().toString() + " - </font> <font color=#F9C29A>" + foodModel.getDiscount().getName() + "</font>";
                     break;
                 case NOON:
-                    textDiscount = " <font color=#BDE3BF>"+foodModel.getDiscount().getDiscountSessionEnum().toString()+" - </font> <font color=#F9C29A>"+foodModel.getDiscount().getName()+"</font>";
+                    textDiscount = " <font color=#BDE3BF>" + foodModel.getDiscount().getDiscountSessionEnum().toString() + " - </font> <font color=#F9C29A>" + foodModel.getDiscount().getName() + "</font>";
                     break;
             }
             txtDiscount.setText(Html.fromHtml(textDiscount));
@@ -118,23 +119,23 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    class LoadingViewHolder extends RecyclerView.ViewHolder{
+    class LoadingViewHolder extends RecyclerView.ViewHolder {
 
         public LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void addLoading(){
+    public void addLoading() {
         isLoading = true;
         listFoods.add(null);
     }
 
-    public void removeLoading(){
+    public void removeLoading() {
         isLoading = false;
         int position = listFoods.size() - 1;
         listFoods.remove(position);

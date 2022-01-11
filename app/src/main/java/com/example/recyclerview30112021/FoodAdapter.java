@@ -18,8 +18,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
     List<FoodModel> listFoods;
     private OnItemClickListener onItemClickListener;
 
+    private int ITEM_TYPE = 1;
+    private int LOADING_TYPE = 0;
+
+    private boolean isLoading = false;
+
     public FoodAdapter(List<FoodModel> listFoods) {
         this.listFoods = listFoods;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 
     @NonNull
@@ -96,8 +106,20 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         }
     }
 
+    class LoadingViewHolder extends RecyclerView.ViewHolder{
+
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void addLoading(){
+        isLoading = true;
+        listFoods.add(null);
     }
 
 }

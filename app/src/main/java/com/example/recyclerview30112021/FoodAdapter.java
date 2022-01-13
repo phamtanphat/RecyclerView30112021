@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -71,7 +73,10 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class FoodViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
-        TextView txtName, txtAddress, txtService, txtDiscount, txtDistance;
+        TextView txtName, txtAddress, txtService, txtDiscount, txtDistance,txtOpen;
+        Calendar calendar;
+        long currentTime;
+        SimpleDateFormat simpleDateFormat;
 
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +87,10 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             txtService = itemView.findViewById(R.id.textViewService);
             txtDiscount = itemView.findViewById(R.id.textViewDiscount);
             txtDistance = itemView.findViewById(R.id.textViewDistance);
+            txtOpen = itemView.findViewById(R.id.textViewOpen);
+            calendar = Calendar.getInstance();
+            currentTime = calendar.getTimeInMillis();
+            simpleDateFormat = new SimpleDateFormat("HH:mm");
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,6 +125,16 @@ public class FoodAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             txtDiscount.setText(Html.fromHtml(textDiscount));
             txtDistance.setText(foodModel.getDistance() + "km");
+
+
+            if (currentTime >= foodModel.getTimeOpen() && currentTime < foodModel.getTimeClose()){
+                txtOpen.setVisibility(View.GONE);
+                return;
+            }
+            txtOpen.setVisibility(View.VISIBLE);
+            txtOpen.setText("Đóng cửa \n Đặt bàn vào lúc " + simpleDateFormat.format(foodModel.getTimeOpen()));
+
+
         }
     }
 
